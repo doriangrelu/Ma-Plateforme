@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-script
+data:
+  00-create-db.sql:
+    CREATE DATABASE ma_plateforme;
+    
+    CREATE USER mpa_uti WITH ENCRYPTED PASSWORD 'pwd';
+    GRANT ALL PRIVILEGES ON DATABASE ma_plateforme TO mpa_uti;

@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    include: config
+  application:
+    name: newletter-core
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak-service/realms/ma-plateforme
