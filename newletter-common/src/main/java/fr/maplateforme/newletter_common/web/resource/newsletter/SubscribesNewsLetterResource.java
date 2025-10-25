@@ -1,8 +1,8 @@
-package fr.maplateforme.newletter_common.web;
+package fr.maplateforme.newletter_common.web.resource.newsletter;
 
 import fr.maplateforme.newletter_common.business.service.NewsLetterService;
 import fr.maplateforme.newletter_common.web.dto.SubscribesNewsLetterDTO;
-import fr.maplateforme.newletter_common.web.mapper.WebMapper;
+import fr.maplateforme.newletter_common.web.mapper.NewsLetterWebMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -16,7 +16,7 @@ public class SubscribesNewsLetterResource {
 
 
     private final NewsLetterService newsLetterService;
-    private final WebMapper mapper;
+    private final NewsLetterWebMapper mapper;
 
     @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> handle(

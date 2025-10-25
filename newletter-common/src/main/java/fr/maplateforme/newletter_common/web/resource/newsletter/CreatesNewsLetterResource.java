@@ -1,10 +1,10 @@
-package fr.maplateforme.newletter_common.web;
+package fr.maplateforme.newletter_common.web.resource.newsletter;
 
 import fr.maplateforme.newletter_common.business.exception.NewsLetterAlreadyExistsException;
 import fr.maplateforme.newletter_common.business.service.NewsLetterService;
 import fr.maplateforme.newletter_common.web.dto.CreateNewsletterDTO;
 import fr.maplateforme.newletter_common.web.dto.NewsLetterDTO;
-import fr.maplateforme.newletter_common.web.mapper.WebMapper;
+import fr.maplateforme.newletter_common.web.mapper.NewsLetterWebMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CreatesNewsLetterResource {
 
     private final NewsLetterService newsLetterService;
-    private final WebMapper mapper;
+    private final NewsLetterWebMapper mapper;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NewsLetterDTO> handle(final JwtAuthenticationToken principal, final @RequestBody @Valid CreateNewsletterDTO request) throws NewsLetterAlreadyExistsException {

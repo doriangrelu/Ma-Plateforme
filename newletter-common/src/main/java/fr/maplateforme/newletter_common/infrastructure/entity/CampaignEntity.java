@@ -31,9 +31,10 @@ public class CampaignEntity {
     @Column(nullable = false, length = 800)
     private String content;
 
-
     private Instant sendAt;
+
     private boolean sent = false;
+    private boolean enabled = false;
 
     @ManyToOne(optional = false)
     private NewsLetterEntity newsletter;
@@ -41,12 +42,16 @@ public class CampaignEntity {
     @CreatedBy
     private String createdBy;
     @CreatedDate
-    private Instant createdDate;
+    private Instant createdAt;
 
     @LastModifiedBy
     private String updatedBy;
     @LastModifiedDate
-    private Instant updatedDate;
+    private Instant updatedAt;
 
+    public void attach(final NewsLetterEntity newsletter) {
+        this.newsletter = newsletter;
+        newsletter.getCampaigns().add(this);
+    }
 
 }

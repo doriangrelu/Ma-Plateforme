@@ -1,10 +1,11 @@
 package fr.maplateforme.newletter_common.business.service;
 
 import fr.maplateforme.newletter_common.business.exception.NewsLetterAlreadyExistsException;
-import fr.maplateforme.newletter_common.business.mapper.BusinessMapper;
+import fr.maplateforme.newletter_common.business.mapper.NewsLetterMapper;
 import fr.maplateforme.newletter_common.business.mapper.SubscribesNewsLetter;
-import fr.maplateforme.newletter_common.business.model.CreateNewsletter;
-import fr.maplateforme.newletter_common.business.model.NewsLetter;
+import fr.maplateforme.newletter_common.business.model.newsletter.CreateNewsletter;
+import fr.maplateforme.newletter_common.business.model.newsletter.NewsLetter;
+import fr.maplateforme.newletter_common.business.model.newsletter.UpdateNewsletter;
 import fr.maplateforme.newletter_common.infrastructure.entity.NewsLetterEntity;
 import fr.maplateforme.newletter_common.infrastructure.entity.SubscriptionEntity;
 import fr.maplateforme.newletter_common.infrastructure.repository.NewsLetterRepository;
@@ -19,11 +20,13 @@ import java.util.Collection;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class NewsLetterService {
 
-    private final BusinessMapper mapper;
+    private final NewsLetterMapper mapper;
     private final NewsLetterRepository newsLetterRepository;
 
+    @Transactional
     public NewsLetter creates(final String owner, final CreateNewsletter createNewsletter) throws NewsLetterAlreadyExistsException {
         if (this.newsLetterRepository.existsByOwnerAndName(owner, createNewsletter.name())) {
             throw new NewsLetterAlreadyExistsException();
@@ -31,6 +34,14 @@ public class NewsLetterService {
         final NewsLetterEntity newsLetterEntity = this.newsLetterRepository.save(this.mapper.map(createNewsletter, owner));
 
         return this.mapper.map(newsLetterEntity);
+    }
+
+    @Transactional
+    public NewsLetter updates(final String owner, final String newsLetterId, final UpdateNewsletter updateNewsletter) {
+        final NewsLetterEntity entity = this.newsLetterRepository.findByOwnerAndId(owner, newsLetterId)
+                .orElseThrow();
+        entity.setEnabled(updateNewsletter.enabled());
+        return this.mapper.map(newsLetterRepository.save(entity));
     }
 
     public Collection<NewsLetter> listAll(final String owner, final Pageable pageable) {

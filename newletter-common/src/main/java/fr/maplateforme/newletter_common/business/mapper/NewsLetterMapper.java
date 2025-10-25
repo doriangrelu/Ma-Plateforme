@@ -1,14 +1,13 @@
 package fr.maplateforme.newletter_common.business.mapper;
 
-import fr.maplateforme.newletter_common.business.model.CreateNewsletter;
-import fr.maplateforme.newletter_common.business.model.NewsLetter;
+import fr.maplateforme.newletter_common.business.model.newsletter.CreateNewsletter;
+import fr.maplateforme.newletter_common.business.model.newsletter.NewsLetter;
 import fr.maplateforme.newletter_common.infrastructure.entity.NewsLetterEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
-public interface BusinessMapper {
+public interface NewsLetterMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "createNewsletter.name")

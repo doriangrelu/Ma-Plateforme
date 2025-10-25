@@ -1,4 +1,4 @@
-package fr.maplateforme.newletter_common.business.model;
+package fr.maplateforme.newletter_common.business.model.newsletter;
 
 public record CreateNewsletter(
         String name,

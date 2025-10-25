@@ -1,5 +1,6 @@
 package fr.maplateforme.newletter_common.web.error;
 
+import fr.maplateforme.newletter_common.business.exception.CampaignAlreadyExistsException;
 import fr.maplateforme.newletter_common.business.exception.NewsLetterAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,11 @@ public class ControllerAdvice {
 
     @ExceptionHandler(NewsLetterAlreadyExistsException.class)
     public ResponseEntity<ProblemDetail> handleNewsLetterAlreadyExistsException(final NewsLetterAlreadyExistsException ex) {
+        return this.handle("Conflict, already exists", HttpStatus.CONFLICT, ex);
+    }
+
+    @ExceptionHandler(CampaignAlreadyExistsException.class)
+    public ResponseEntity<ProblemDetail> handleCampaignAlreadyExistsException(final CampaignAlreadyExistsException ex) {
         return this.handle("Conflict, already exists", HttpStatus.CONFLICT, ex);
     }
 
