@@ -11,21 +11,25 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable
+  MatTableModule
 } from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {CreatesNewsLetterModalComponent} from './shared/creates-news-letter-modal/creates-news-letter-modal.component';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {Page, PageRequest} from '../../shared/model/page.model';
+import {DatePipe} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {RouterLink} from '@angular/router';
+
 
 @Component({
   selector: 'app-newsletter',
   imports: [
-    MatTable,
     MatColumnDef,
     MatHeaderCell,
     MatCell,
+    MatTableModule,
     MatHeaderCellDef,
     MatCellDef,
     MatHeaderRowDef,
@@ -33,17 +37,21 @@ import {Page, PageRequest} from '../../shared/model/page.model';
     MatRow,
     MatHeaderRow,
     MatButton,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DatePipe,
+    MatIconModule,
+    MatAnchor,
+    RouterLink
   ],
   templateUrl: './newsletter.component.html',
-  styleUrl: './newsletter.component.css'
+  styleUrl: './newsletter.component.scss'
 })
 export class NewsletterComponent implements OnInit {
 
   private readonly newsletterService = inject(NewsletterService);
   private readonly dialog = inject(MatDialog);
 
-  protected displayedColumns: string[] = ['name', 'enabled', 'createdAt', 'updatedAt'];
+  protected displayedColumns: string[] = ['name', 'enabled', 'createdAt', 'updatedAt', 'actions'];
 
 
   protected newsletters: Newsletter[] = [];

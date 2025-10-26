@@ -26,6 +26,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+mat-icon {
+  margin: 0 0 !important;
+  padding: 0 0 !important;
+}
+
 /* Base */
 .mat-mdc-snack-bar-container.toast .mdc-snackbar__surface {
   border-radius: 12px;

@@ -1,0 +1,15 @@
+@use 'variables' as *;
+
+mat-table {
+  width: 100%;
+}
+
+
+
+.enabled {
+  color: $success
+}
+
+.disabled {
+  color: $error;
+}
