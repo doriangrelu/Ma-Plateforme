@@ -1,1 +1,61 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Base */
+.mat-mdc-snack-bar-container.toast .mdc-snackbar__surface {
+  border-radius: 12px;
+  box-shadow: var(--mat-elevation-4, 0 2px 8px rgba(0, 0, 0, .2));
+  padding: 8px 16px;
+  min-height: 44px;
+}
+
+/* Typo et contraste */
+.mat-mdc-snack-bar-container.toast .mdc-snackbar__label {
+  font-weight: 500;
+}
+
+/* Variantes (couleurs douces façon M3) */
+.mat-mdc-snack-bar-container.toast.toast--info .mdc-snackbar__surface {
+  color: white;
+  background: #0b3d91;
+}
+
+.mat-mdc-snack-bar-container.toast.toast--success.mdc-snackbar .mdc-snackbar__label {
+  font-weight: 600;
+}
+
+/* optionnel */
+
+.mat-mdc-snack-bar-container.toast.toast--success .mdc-snackbar__surface {
+  color: white;
+  background: #1b5e20;
+}
+
+.mat-mdc-snack-bar-container.toast.toast--warning .mdc-snackbar__surface {
+  color: white;
+  background: #7a4f01;
+}
+
+.mat-mdc-snack-bar-container.toast.toast--error .mdc-snackbar__surface {
+  color: white;
+  background: #b71c1c;
+}
+
+.mat-mdc-snack-bar-action {
+  color: white;
+}
+
+/* Bouton d'action */
+.mat-mdc-snack-bar-container.toast .mdc-button__label {
+  font-weight: 600;
+}
+

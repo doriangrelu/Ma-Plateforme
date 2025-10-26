@@ -6,5 +6,5 @@ spring:
   security:
     oauth2:
       resourceserver:
-        jwt:
-          issuer-uri: http://keycloak-service/realms/ma-plateforme
+        opaquetoken:
+          introspection-uri: http://keycloak-service/realms/ma-plateforme/protocol/openid-connect/token/introspect

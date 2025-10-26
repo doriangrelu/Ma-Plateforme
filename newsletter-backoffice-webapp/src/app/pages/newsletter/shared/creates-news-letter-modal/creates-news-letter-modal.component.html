@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Création d'une nouvelle newsletter</h2>
+
+<mat-dialog-content>
+
+  @if (errorMessage !== "") {
+    <app-alert type="error" title="Une erreur est survenue" [message]="errorMessage"/>
+  }
+
+  <form [formGroup]="createsNewsletterForm">
+    <p>
+      <mat-form-field class="w-100">
+        <mat-label>Nom de la newsletter</mat-label>
+        <input matInput formControlName="name"/>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-checkbox [formControlName]="'enabled'">
+        Activer la newsletter
+      </mat-checkbox>
+    </p>
+    <p class="mt-4">
+
+    </p>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="onNoClick()" mat-raised-button>Annuler</button>
+  <button (click)="onSubmit()" mat-flat-button color="primary">Soumettre</button>
+</mat-dialog-actions>

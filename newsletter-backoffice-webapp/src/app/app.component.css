@@ -1,0 +1,23 @@
+.container {
+  /* marge latérale fluide (clamp = min/max intelligents) */
+  padding-left: clamp(12px, 4vw, 24px);
+  padding-right: clamp(12px, 4vw, 24px);
+
+  /* largeur max (change si tu veux plus large) */
+  max-width: 2000px;
+
+  /* centré */
+  margin-inline: auto;
+
+  /* espace vertical de base */
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+
+app-infinite-loader {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}

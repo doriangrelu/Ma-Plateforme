@@ -1,2 +1,9 @@
 server:
   port: 1010
+
+spring:
+  security:
+    cors:
+      allowed-origins:
+        - https://frontend.example.com
+        - http://localhost:4200

@@ -1,4 +1,4 @@
-import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -13,22 +13,26 @@ import {
   withAutoRefreshToken
 } from 'keycloak-angular';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const urlCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
-  urlPattern: /^(http:\/\/localhost:1011)(\/.*)?$/i,
+  urlPattern: /^(http:\/\/localhost:1010)(\/.*)?$/i,
   bearerPrefix: 'Bearer'
 });
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimationsAsync(),
+    importProvidersFrom(MatSnackBarModule),
     provideKeycloak({
       config: {
         url: 'http://keycloak-service',
-        realm: 'ma-plateforme Current realm\t',
-        clientId: 'client-id'
+        realm: 'ma-plateforme',
+        clientId: 'newsletter-webapp'
       },
       initOptions: {
-        onLoad: 'check-sso',
+        onLoad: 'login-required',
         pkceMethod: "S256",
         silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
       },
