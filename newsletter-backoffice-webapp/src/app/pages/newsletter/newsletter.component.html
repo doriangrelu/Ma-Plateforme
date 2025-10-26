@@ -1,5 +1,5 @@
-<div class="button-container">
-  <button mat-button (click)="openCreatesModel()">Créer nouvelle newsletter</button>
+<div class="button-container pb-4 flex justify-end w-full">
+  <button mat-flat-button (click)="openCreatesModel()">Créer nouvelle newsletter</button>
 </div>
 <table mat-table [dataSource]="newsletters" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
@@ -26,7 +26,10 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [length]="200"
+<mat-paginator [length]="page().totalElements"
+               [pageIndex]="page().currentPage"
+               [pageSize]="page().pageSize"
                [pageSizeOptions]="[10, 50, 100]"
+               (page)="onChangePageOptions($event)"
                aria-label="Select page">
 </mat-paginator>

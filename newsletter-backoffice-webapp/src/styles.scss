@@ -1,6 +1,22 @@
+@use '@angular/material' as mat;
+@use 'variables' as *;
+@use 'theme-colors' as myTheme;
+
+@include mat.core();
+
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: myTheme.$primary-palette,
+    tertiary: myTheme.$tertiary-palette
+  ),
+));
+
+
 @import "tailwindcss";
 
 html, body {
+  @include mat.all-component-themes($theme);
   width: 100%;
   height: 100%;
 }
@@ -26,7 +42,7 @@ body {
 /* Variantes (couleurs douces façon M3) */
 .mat-mdc-snack-bar-container.toast.toast--info .mdc-snackbar__surface {
   color: white;
-  background: #0b3d91;
+  background: $info;
 }
 
 .mat-mdc-snack-bar-container.toast.toast--success.mdc-snackbar .mdc-snackbar__label {
@@ -37,17 +53,17 @@ body {
 
 .mat-mdc-snack-bar-container.toast.toast--success .mdc-snackbar__surface {
   color: white;
-  background: #1b5e20;
+  background: $success;
 }
 
 .mat-mdc-snack-bar-container.toast.toast--warning .mdc-snackbar__surface {
   color: white;
-  background: #7a4f01;
+  background: $warning;
 }
 
 .mat-mdc-snack-bar-container.toast.toast--error .mdc-snackbar__surface {
   color: white;
-  background: #b71c1c;
+  background: $error;
 }
 
 .mat-mdc-snack-bar-action {

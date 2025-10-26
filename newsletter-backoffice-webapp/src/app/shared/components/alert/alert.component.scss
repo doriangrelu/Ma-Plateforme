@@ -1,0 +1,23 @@
+@use 'variables' as *;
+
+@mixin alert-variant($bg-color) {
+  background: $bg-color;
+  border: none;
+  color: white;
+}
+
+.error {
+  @include alert-variant($error);
+}
+
+.warning {
+  @include alert-variant($warning);
+}
+
+.info {
+  @include alert-variant($info);
+}
+
+.success {
+  @include alert-variant($success);
+}

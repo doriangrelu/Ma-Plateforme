@@ -4,6 +4,7 @@ package fr.maplateforme.newletter_common.web.resource.newsletter;
 import fr.maplateforme.newletter_common.business.exception.NewsLetterAlreadyExistsException;
 import fr.maplateforme.newletter_common.business.service.NewsLetterService;
 import fr.maplateforme.newletter_common.web.dto.NewsLetterDTO;
+import fr.maplateforme.newletter_common.web.dto.PageDTO;
 import fr.maplateforme.newletter_common.web.mapper.NewsLetterWebMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-
 @RestController
 @RequestMapping("/newsletters")
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class ListNewsLettersResource {
     private final NewsLetterWebMapper mapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<NewsLetterDTO>> handle(
+    public ResponseEntity<PageDTO<NewsLetterDTO>> handle(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "size", required = false, defaultValue = "100") Integer size,
             final BearerTokenAuthentication principal

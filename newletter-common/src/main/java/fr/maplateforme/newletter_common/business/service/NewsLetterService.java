@@ -3,6 +3,7 @@ package fr.maplateforme.newletter_common.business.service;
 import fr.maplateforme.newletter_common.business.exception.NewsLetterAlreadyExistsException;
 import fr.maplateforme.newletter_common.business.mapper.NewsLetterMapper;
 import fr.maplateforme.newletter_common.business.mapper.SubscribesNewsLetter;
+import fr.maplateforme.newletter_common.business.model.ContentPage;
 import fr.maplateforme.newletter_common.business.model.newsletter.CreateNewsletter;
 import fr.maplateforme.newletter_common.business.model.newsletter.NewsLetter;
 import fr.maplateforme.newletter_common.business.model.newsletter.UpdateNewsletter;
@@ -11,11 +12,13 @@ import fr.maplateforme.newletter_common.infrastructure.entity.SubscriptionEntity
 import fr.maplateforme.newletter_common.infrastructure.repository.NewsLetterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -44,10 +47,16 @@ public class NewsLetterService {
         return this.mapper.map(newsLetterRepository.save(entity));
     }
 
-    public Collection<NewsLetter> listAll(final String owner, final Pageable pageable) {
-        return this.newsLetterRepository.findByOwner(owner, pageable).stream()
-                .map(mapper::map)
-                .toList();
+    public ContentPage<NewsLetter> listAll(final String owner, final Pageable pageable) {
+        final Page<NewsLetterEntity> page = this.newsLetterRepository.findByOwner(owner, pageable);
+        final List<NewsLetter> content = page.getContent().stream().map(this.mapper::map).toList();
+        return ContentPage.of(
+                content,
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.getSize(),
+                page.getNumber()
+        );
     }
 
     @Transactional

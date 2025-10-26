@@ -1,6 +1,7 @@
 package fr.maplateforme.newletter_common.infrastructure.repository;
 
 import fr.maplateforme.newletter_common.infrastructure.entity.NewsLetterEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
@@ -16,7 +17,7 @@ public interface NewsLetterRepository extends ListCrudRepository<NewsLetterEntit
     Optional<NewsLetterEntity> findByOwnerAndId(String owner, String id);
 
 
-    List<NewsLetterEntity> findByOwner(String owner, Pageable pageable);
+    Page<NewsLetterEntity> findByOwner(String owner, Pageable pageable);
 
     @Query("""
             select n from newsletters n

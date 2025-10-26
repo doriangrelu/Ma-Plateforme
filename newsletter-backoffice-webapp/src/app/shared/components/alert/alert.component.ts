@@ -10,7 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule,
   ],
   templateUrl: './alert.component.html',
-  styleUrl: './alert.component.css'
+  styleUrl: './alert.component.scss'
 })
 export class AlertComponent {
 
@@ -24,10 +24,10 @@ export class AlertComponent {
   get classes() {
     const base = 'flex items-center gap-3 rounded-xl shadow-md px-4 py-3 border';
     const variants: Record<string, string> = {
-      success: 'bg-green-50 text-green-900 border-green-200',
-      error: 'bg-red-50 text-red-900 border-red-200',
-      warning: 'bg-amber-50 text-amber-900 border-amber-200',
-      info: 'bg-blue-50 text-blue-900 border-blue-200',
+      success: 'success',
+      error: 'error',
+      warning: 'warning',
+      info: 'info',
     };
     return `${base} ${variants[this.type]}`;
   }
@@ -47,10 +47,10 @@ export class AlertComponent {
 
   get iconColor() {
     return {
-      success: 'text-green-700',
-      error: 'text-red-700',
-      warning: 'text-amber-700',
-      info: 'text-blue-700',
+      success: 'icon-success',
+      error: 'icon-error',
+      warning: 'icon-warning',
+      info: 'icon-info',
     }[this.type];
   }
 
