@@ -1,7 +1,7 @@
-<div class="flex flex-col gap-3 py-4 max-w-md">
+<div class="flex flex-row gap-3 py-4 max-w-md w-full justify-center">
   <div [ngClass]="classes" role="status" aria-live="polite">
     <mat-icon aria-hidden="false" aria-label="Example home icon" [ngClass]="iconColor" [fontIcon]="icon"></mat-icon>
-    <div class="flex-1">
+    <div class="flex-1 w-full">
       <ng-container *ngIf="title; else onlyMessage">
         <strong class="block font-medium">{{ title }}</strong>
         <p class="text-sm">{{ message }}</p>

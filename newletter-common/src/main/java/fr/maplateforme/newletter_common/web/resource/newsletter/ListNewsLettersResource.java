@@ -1,7 +1,6 @@
 package fr.maplateforme.newletter_common.web.resource.newsletter;
 
 
-import fr.maplateforme.newletter_common.business.exception.NewsLetterAlreadyExistsException;
 import fr.maplateforme.newletter_common.business.service.NewsLetterService;
 import fr.maplateforme.newletter_common.web.dto.NewsLetterDTO;
 import fr.maplateforme.newletter_common.web.dto.PageDTO;
@@ -30,7 +29,7 @@ public class ListNewsLettersResource {
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "size", required = false, defaultValue = "100") Integer size,
             final BearerTokenAuthentication principal
-    ) throws NewsLetterAlreadyExistsException {
+    ) {
         return ResponseEntity.ok(
                 this.mapper.map(
                         this.newsLetterService.listAll(

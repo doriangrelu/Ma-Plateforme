@@ -24,10 +24,10 @@ export class AlertComponent {
   get classes() {
     const base = 'flex items-center gap-3 rounded-xl shadow-md px-4 py-3 border';
     const variants: Record<string, string> = {
-      success: 'success',
-      error: 'error',
-      warning: 'warning',
-      info: 'info',
+      success: 'success w-full',
+      error: 'error w-full',
+      warning: 'warning w-full',
+      info: 'info w-full',
     };
     return `${base} ${variants[this.type]}`;
   }

@@ -47,6 +47,12 @@ public class NewsLetterService {
         return this.mapper.map(newsLetterRepository.save(entity));
     }
 
+    public NewsLetter details(String owner, String newsLetterId) {
+        final NewsLetterEntity newsLetterEntity = this.newsLetterRepository.findByOwnerAndId(owner, newsLetterId)
+                .orElseThrow();
+        return this.mapper.map(newsLetterEntity);
+    }
+
     public ContentPage<NewsLetter> listAll(final String owner, final Pageable pageable) {
         final Page<NewsLetterEntity> page = this.newsLetterRepository.findByOwner(owner, pageable);
         final List<NewsLetter> content = page.getContent().stream().map(this.mapper::map).toList();

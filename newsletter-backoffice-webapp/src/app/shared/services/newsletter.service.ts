@@ -17,6 +17,10 @@ export class NewsletterService {
     });
   }
 
+  public details(newsletterId: string): Observable<Newsletter> {
+    return this.client.get<Newsletter>('http://localhost:1010/newsletters/' + newsletterId);
+  }
+
   public creates(createsNewsletter: CreatesNewsletter): Observable<void> {
     return this.client.post<void>('http://localhost:1010/newsletters', createsNewsletter);
   }

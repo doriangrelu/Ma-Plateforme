@@ -12,8 +12,12 @@ $theme: mat.define-theme((
   ),
 ));
 
-
 @import "tailwindcss";
+
+app-alert {
+  display: flex;
+  justify-content: center;
+}
 
 html, body {
   @include mat.all-component-themes($theme);
@@ -80,3 +84,17 @@ mat-icon {
   font-weight: 600;
 }
 
+.mat-mdc-list-item-unscoped-content {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+
+mat-card-header {
+  display: block !important;
+}
+
+.text-info {
+  color: $info;
+}

@@ -19,11 +19,14 @@ export class LoaderService {
   }
 
   public removeLoading() {
-    this.loading.update(value => value - 1);
+    this.loading.update(value => {
+      const result = value - 1;
+      return result < 0 ? 0 : result;
+    });
   }
 
   public getIsLoading(): Signal<boolean> {
     return this.isLoading;
   }
-  
+
 }

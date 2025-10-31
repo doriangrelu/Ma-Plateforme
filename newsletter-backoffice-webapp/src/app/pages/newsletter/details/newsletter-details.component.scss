@@ -1,0 +1,9 @@
+@use 'variables' as *;
+
+.enabled {
+  color: $success;
+}
+
+.disabled {
+  color: $error;
+}
