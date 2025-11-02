@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Création d'une nouvelle newsletter</h2>
+
+<mat-dialog-content>
+
+  @if (error) {
+    <app-alert type="error" title="Impossible de créer la campagne" [message]="error"/>
+  }
+
+  <form [formGroup]="createsCampaignForm">
+    <p>
+      <mat-form-field class="w-full">
+        <mat-label>Nom de la campagne</mat-label>
+        <input matInput formControlName="name" placeholder="Ex. Ma campagne de prévention..."/>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="w-full">
+        <mat-label>Description de la campagne</mat-label>
+        <textarea matInput
+                  formControlName="description"
+                  placeholder="Ex. campagne permettant de prévenir les gens de la beauté de Thierry..."></textarea>
+      </mat-form-field>
+    </p>
+
+    <mat-form-field class="w-full">
+      <mat-label>Date d'envoi de la campagne</mat-label>
+      <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="sendAt">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="mt-6">
+      <h2 class="text-xl">Editez le contenu de votre campagne</h2>
+      <email-editor
+        [options]="options"
+        [scriptUrl]="scriptUrl"
+        (loaded)="editorLoaded()"
+        (ready)="editorReady()"
+        #editor
+      ></email-editor>
+
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="cancel()" mat-raised-button>Annuler</button>
+  <button mat-flat-button (click)="submit()" [disabled]="createsCampaignForm.invalid">Créer</button>
+</mat-dialog-actions>

@@ -57,7 +57,8 @@
                 "src"
               ]
             },
-            "scripts": []
+            "scripts": [
+            ]
           },
           "configurations": {
             "production": {

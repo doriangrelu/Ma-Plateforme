@@ -15,6 +15,7 @@ import {
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
 
 const urlCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
   urlPattern: /^(http:\/\/localhost:1010)(\/.*)?$/i,
@@ -23,6 +24,8 @@ const urlCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+    provideNativeDateAdapter(),
     provideAnimationsAsync(),
     importProvidersFrom(MatSnackBarModule),
     provideKeycloak({

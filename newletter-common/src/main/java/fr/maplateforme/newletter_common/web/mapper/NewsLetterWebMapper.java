@@ -6,6 +6,10 @@ import fr.maplateforme.newletter_common.business.model.newsletter.CreateNewslett
 import fr.maplateforme.newletter_common.business.model.newsletter.NewsLetter;
 import fr.maplateforme.newletter_common.business.model.newsletter.UpdateNewsletter;
 import fr.maplateforme.newletter_common.web.dto.*;
+import fr.maplateforme.newletter_common.web.dto.newsletter.CreateNewsletterDTO;
+import fr.maplateforme.newletter_common.web.dto.newsletter.NewsLetterDTO;
+import fr.maplateforme.newletter_common.web.dto.newsletter.SubscribesNewsLetterDTO;
+import fr.maplateforme.newletter_common.web.dto.newsletter.UpdateNewsletterDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

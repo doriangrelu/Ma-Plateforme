@@ -2,7 +2,7 @@ package fr.maplateforme.newletter_common.web.resource.newsletter;
 
 
 import fr.maplateforme.newletter_common.business.service.NewsLetterService;
-import fr.maplateforme.newletter_common.web.dto.NewsLetterDTO;
+import fr.maplateforme.newletter_common.web.dto.newsletter.NewsLetterDTO;
 import fr.maplateforme.newletter_common.web.dto.PageDTO;
 import fr.maplateforme.newletter_common.web.mapper.NewsLetterWebMapper;
 import lombok.RequiredArgsConstructor;

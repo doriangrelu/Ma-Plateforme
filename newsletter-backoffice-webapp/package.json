@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "@tailwindcss/postcss": "^4.1.16",
+    "angular-email-editor": "^15.2.0",
     "keycloak-angular": "^19.0.0",
     "keycloak-js": "^26.2.1",
     "postcss": "^8.5.6",

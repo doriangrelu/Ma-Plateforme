@@ -1,7 +1,7 @@
 package fr.maplateforme.newletter_common.web.resource.newsletter;
 
 import fr.maplateforme.newletter_common.business.service.NewsLetterService;
-import fr.maplateforme.newletter_common.web.dto.SubscribesNewsLetterDTO;
+import fr.maplateforme.newletter_common.web.dto.newsletter.SubscribesNewsLetterDTO;
 import fr.maplateforme.newletter_common.web.mapper.NewsLetterWebMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

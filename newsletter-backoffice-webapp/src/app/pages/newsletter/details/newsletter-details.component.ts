@@ -14,13 +14,17 @@ import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
   MatTable
 } from '@angular/material/table';
+import {MatDialog} from '@angular/material/dialog';
+import {CreatesCampaignModalComponent} from './shared/creates-campaign-modal/creates-campaign-modal.component';
+import {CampaignService} from '../../../shared/services/campaign.service';
 
 @Component({
   selector: 'app-details',
@@ -46,7 +50,7 @@ import {
     MatRow,
     MatRowDef,
     MatTable,
-    MatHeaderCellDef
+    MatHeaderCellDef,
   ],
   templateUrl: './newsletter-details.component.html',
   styleUrl: './newsletter-details.component.scss'
@@ -55,21 +59,25 @@ export class NewsletterDetailsComponent implements OnInit {
 
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly newsletterService = inject(NewsletterService);
+  private readonly campaignService = inject(CampaignService);
   private readonly loaderService = inject(LoaderService);
+  private readonly dialog = inject(MatDialog);
 
   protected error = "";
-
   protected newsletter: Newsletter | null = null;
   protected campaigns: Campaign[] = [];
-
   protected displayedColumns: string[] = ['name', 'enabled', 'sent', 'sentAt', 'createdAt', 'updatedAt', 'actions'];
 
+  private newsletterId!: string;
 
   ngOnInit(): void {
-    this.loaderService.addLoading();
-    const newsletterId = this.activatedRoute.snapshot.params['newsletterId'];
-    console.debug('See details for newsletter: ', newsletterId);
+    this.newsletterId = this.activatedRoute.snapshot.params['newsletterId'];
+    console.debug('See details for newsletter: ', this.newsletterId);
+    this.resfreshData(this.newsletterId);
+  }
 
+  private resfreshData(newsletterId: string) {
+    this.loaderService.addLoadingNumber(2);
     this.newsletterService.details(newsletterId).subscribe({
       next: (event: Newsletter) => {
         console.debug("Resolved newsletter details: ", event)
@@ -84,9 +92,33 @@ export class NewsletterDetailsComponent implements OnInit {
         }
         this.loaderService.removeLoading();
       }
-    })
+    });
 
+    this.campaignService.listAll(newsletterId, {
+      pageIndex: 0, pageSize: 100
+    }).subscribe({
+      next: (event: Campaign[]) => {
+        this.campaigns = event;
+      }, complete: () => {
+        this.loaderService.removeLoading();
+      }
+    });
   }
 
+  protected createCampaign() {
+    const modalRef = this.dialog.open(CreatesCampaignModalComponent, {
+      width: '90vw',
+      height: '80vh',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      panelClass: 'dialog-grande',
+      data: {
+        newsletter: this.newsletter?.id,
+      }
+    });
+    modalRef.afterClosed().subscribe(result => {
+      this.resfreshData(this.newsletterId);
+    });
+  }
 
 }

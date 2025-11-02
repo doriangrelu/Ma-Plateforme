@@ -28,8 +28,14 @@ public class CampaignEntity {
     private String name;
     @Column(nullable = false, length = 600)
     private String description;
-    @Column(nullable = false, length = 800)
+
+    @Lob
+    @Column(nullable = false)
     private String content;
+
+    @Lob
+    @Column(nullable = false)
+    private String design;
 
     private Instant sendAt;
 

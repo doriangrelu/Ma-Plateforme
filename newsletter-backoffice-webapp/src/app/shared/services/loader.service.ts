@@ -18,6 +18,14 @@ export class LoaderService {
     this.loading.update(value => value + 1);
   }
 
+  public addLoadingNumber(number: number) {
+    if (number < 1) {
+      throw new Error('Number must be a positive integer');
+    }
+    this.loading.update(value => value + number);
+  }
+
+
   public removeLoading() {
     this.loading.update(value => {
       const result = value - 1;
