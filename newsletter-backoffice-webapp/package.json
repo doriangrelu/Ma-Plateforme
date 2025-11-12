@@ -11,7 +11,6 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.15",
-    "@angular/cdk": "^19.2.19",
     "@angular/common": "^19.2.15",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
@@ -24,10 +23,13 @@
     "angular-email-editor": "^15.2.0",
     "keycloak-angular": "^19.0.0",
     "keycloak-js": "^26.2.1",
+    "mjml": "^4.16.1",
+    "mjml-browser": "^4.16.1",
     "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.16",
     "tslib": "^2.3.0",
+    "uuid": "^13.0.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

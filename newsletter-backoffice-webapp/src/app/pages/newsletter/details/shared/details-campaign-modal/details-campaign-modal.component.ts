@@ -1,5 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {EmailEditorModule} from "angular-email-editor";
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {EmailEditorComponent, EmailEditorModule} from "angular-email-editor";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
   MAT_DIALOG_DATA,
@@ -30,6 +30,25 @@ import {MatButton} from '@angular/material/button';
 })
 export class DetailsCampaignModalComponent implements OnInit {
 
+  @ViewChild(EmailEditorComponent)
+  private emailEditor!: EmailEditorComponent;
+
+  protected readonly scriptUrl = 'https://editor.unlayer.com/embed.js?2';
+  protected readonly options: EmailEditorComponent['options'] = {
+    locale: 'fr-FR',
+    safeHtml: true,
+    version: 'latest',
+    appearance: {
+      theme: 'modern_dark',
+    },
+    fonts: {
+      showDefaultFonts: true
+    },
+    features: {
+      sendTestEmail: true
+    }
+  };
+
   private readonly data = inject<{ campaign: Campaign }>(MAT_DIALOG_DATA);
 
   private readonly dialogRef = inject(MatDialogRef<DetailsCampaignModalComponent>);
@@ -45,6 +64,16 @@ export class DetailsCampaignModalComponent implements OnInit {
 
   protected close() {
     this.dialogRef.close();
+  }
+
+  protected editorLoaded() {
+    if (this.campaign?.design) {
+      console.log("LOADED DESIGN: ", this.campaign?.design);
+    }
+  }
+
+  protected editorReady() {
+    this.dialogRef.disableClose = false;
   }
 
 }

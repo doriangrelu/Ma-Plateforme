@@ -3,12 +3,22 @@
 <mat-dialog-content>
 
   <div class="mt-4 grid grid-flow-col gap-4 grid-row-2">
-    <div class="fle">
+    <div class="text-2xl font-bold">
       infos
     </div>
     <div>
-      <h1>Apperçu de la campagne</h1>
-      <div class="mt-4" [innerHTML]="campaign?.content"></div>
+      <div class="mt-6">
+        <h2 class="text-xl">Editez le contenu de votre campagne</h2>
+
+        <div id="editor-container" class="h-full"></div>
+
+        <!--        <email-editor-->
+        <!--          [options]="options"-->
+        <!--          [scriptUrl]="scriptUrl"-->
+        <!--          (loaded)="editorLoaded()"-->
+        <!--          (ready)="editorReady()"-->
+        <!--        ></email-editor>-->
+      </div>
     </div>
   </div>
 

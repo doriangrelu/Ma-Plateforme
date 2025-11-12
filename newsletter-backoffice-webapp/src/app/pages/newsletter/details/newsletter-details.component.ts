@@ -20,7 +20,7 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable
+  MatTableModule
 } from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {CreatesCampaignModalComponent} from './shared/creates-campaign-modal/creates-campaign-modal.component';
@@ -50,7 +50,7 @@ import {DetailsCampaignModalComponent} from './shared/details-campaign-modal/det
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    MatTable,
+    MatTableModule,
     MatHeaderCellDef,
   ],
   templateUrl: './newsletter-details.component.html',

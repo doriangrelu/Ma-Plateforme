@@ -1,0 +1,21 @@
+@use "tailwindcss";
+
+.editor-block {
+  @apply hover:cursor-pointer hover:bg-gray-200 h-32 w-32;
+  @apply bg-gray-300 flex justify-center items-center rounded-lg shadow;
+  @apply flex-col;
+
+  p {
+    @apply font-bold;
+  }
+
+}
+
+.editor-title {
+  @apply mb-4 text-center bg-gray-100 py-4 font-bold text-2xl;
+}
+
+.editor-container {
+  @apply flex justify-between rounded-2xl overflow-hidden;
+  @apply border border-gray-100
+}

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, ViewChild, ViewRef} from '@angular/core';
 import {EmailEditorComponent, EmailEditorModule} from 'angular-email-editor';
 import {
   MAT_DIALOG_DATA,
@@ -52,6 +52,9 @@ export class CreatesCampaignModalComponent implements OnInit {
   private readonly toasterService = inject(ToasterService);
   private readonly campaignService = inject(CampaignService);
   protected sending = false;
+
+  @ViewChild(EmailEditorComponent)
+  private emailEditor!: EmailEditorComponent;
 
 
   protected readonly scriptUrl = 'https://editor.unlayer.com/embed.js?2';
