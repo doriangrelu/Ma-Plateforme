@@ -5,19 +5,35 @@
   "schematics": {
     "@schematics/angular:component": {
       "skipTests": true,
-      "style": "scss"
+      "style": "scss",
+      "type": "component"
     },
     "@schematics/angular:service": {
-      "skipTests": true
+      "skipTests": true,
+      "type": "service"
     },
     "@schematics/angular:pipe": {
-      "skipTests": true
+      "skipTests": true,
+      "typeSeparator": "."
     },
     "@schematics/angular:directive": {
-      "skipTests": true
+      "skipTests": true,
+      "type": "directive"
     },
     "@schematics/angular:class": {
       "skipTests": true
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "projects": {
