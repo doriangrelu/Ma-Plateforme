@@ -2,8 +2,10 @@
 
 <mat-dialog-content>
 
-  @if (error) {
-    <app-alert type="error" title="Impossible de créer la campagne" [message]="error"/>
+  @if (error !== null) {
+    <div class="m-4">
+      <app-alert type="error" title="Impossible de créer la campagne" [message]="error"/>
+    </div>
   }
 
   <form [formGroup]="createsCampaignForm">
@@ -46,5 +48,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button (click)="cancel()" mat-raised-button>Annuler</button>
-  <button mat-flat-button (click)="submit()" [disabled]="createsCampaignForm.invalid">Créer</button>
+  <button mat-flat-button (click)="submit()" [disabled]="createsCampaignForm.invalid || this.sending">Créer</button>
 </mat-dialog-actions>

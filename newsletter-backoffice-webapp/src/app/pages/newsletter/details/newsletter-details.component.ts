@@ -63,6 +63,7 @@ export class NewsletterDetailsComponent implements OnInit {
   private readonly loaderService = inject(LoaderService);
   private readonly dialog = inject(MatDialog);
 
+  protected isLoading = this.loaderService.getIsLoading();
   protected error = "";
   protected newsletter: Newsletter | null = null;
   protected campaigns: Campaign[] = [];
@@ -78,31 +79,33 @@ export class NewsletterDetailsComponent implements OnInit {
 
   private resfreshData(newsletterId: string) {
     this.loaderService.addLoadingNumber(2);
-    this.newsletterService.details(newsletterId).subscribe({
-      next: (event: Newsletter) => {
-        console.debug("Resolved newsletter details: ", event)
-        this.newsletter = event;
-        this.loaderService.removeLoading();
-      },
-      error: (event) => {
-        if (event.status === 404) {
-          this.error = "Newsletter introuvable.";
-        } else {
-          this.error = "Une erreur inopinée est survenue.";
+    this.newsletterService.details(newsletterId)
+      .subscribe({
+        next: (event: Newsletter) => {
+          console.debug("Resolved newsletter details: ", event)
+          this.newsletter = event;
+        },
+        error: (event) => {
+          if (event.status === 404) {
+            this.error = "Newsletter introuvable.";
+          } else {
+            this.error = "Une erreur inopinée est survenue.";
+          }
         }
-        this.loaderService.removeLoading();
-      }
-    });
+      })
+      .add(() => this.loaderService.removeLoading());
 
     this.campaignService.listAll(newsletterId, {
       pageIndex: 0, pageSize: 100
     }).subscribe({
       next: (event: Campaign[]) => {
         this.campaigns = event;
-      }, complete: () => {
-        this.loaderService.removeLoading();
+      },
+      error: (event) => {
+        console.error(event);
       }
-    });
+    })
+      .add(() => this.loaderService.removeLoading());
   }
 
   protected createCampaign() {

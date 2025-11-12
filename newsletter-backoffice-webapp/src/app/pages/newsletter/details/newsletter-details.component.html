@@ -1,129 +1,145 @@
-<div class="mb-8">
-  <a mat-raised-button routerLink="/newsletters">
-    <mat-icon aria-hidden="false" aria-label="Retourner sur la page des newsletters" class="px-0 mx-0"
-              fontIcon="arrow_back"></mat-icon>
-  </a>
-</div>
-
-@if (error !== "") {
-  <app-alert class="w-full" title="Oups une erreur est survenue" [message]="error" type="error"/>
-} @else {
-  <div class="grid grid-flow-col gap-4 grid-row-2">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title class="block w-full">
-          <div class="w-full flex justify-between px-4 items-center">
-            <h1>Informations sur la newsletter</h1>
-            <button mat-flat-button>
-              <mat-icon aria-hidden="false" aria-label="Modifier la newsletter" fontIcon="edit"></mat-icon>
-            </button>
-          </div>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-
-        <mat-list>
-          <mat-list-item><span class="font-bold">Nom: </span> {{ newsletter?.name }}</mat-list-item>
-          <mat-list-item><span class="font-bold">Activée: </span>
-            @if (newsletter?.enabled === true) {
-              <mat-icon aria-hidden="false" aria-label="Activée" class="enabled" fontIcon="check_circle"></mat-icon>
-            } @else {
-              <mat-icon aria-hidden="false" aria-label="Désactivée" class="disabled" fontIcon="cancel"></mat-icon>
-            }
-          </mat-list-item>
-          <mat-list-item><span
-            class="font-bold">Date de création: </span> {{ newsletter?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
-          </mat-list-item>
-          <mat-list-item><span
-            class="font-bold">Date de dernière modification: </span> {{ newsletter?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}
-          </mat-list-item>
-        </mat-list>
-
-      </mat-card-content>
-    </mat-card>
-
-
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>
-          <div class="w-full flex justify-between px-4 mb-4 items-center">
-            <div class="w-1/2">
-              <h1 class="block">Liste des campganes</h1>
-            </div>
-            <div class="w-full flex justify-end gap-2 items-center">
-              <button mat-flat-button (click)="createCampaign()">
-                <mat-icon aria-hidden="false" aria-label="Modifier la newsletter" fontIcon="add"></mat-icon>
-              </button>
-              <button mat-raised-button>
-                <mat-icon aria-hidden="false" aria-label="Modifier la newsletter" fontIcon="delete"></mat-icon>
-              </button>
-            </div>
-          </div>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        @if (campaigns.length === 0) {
-          <p class="text-info text-shadow-2xs text-center flex gap-4 justify-center items-center">
-            <mat-icon aria-hidden="false" aria-label="Information aucune campagne" fontIcon="info"></mat-icon>
-            Aucune campagne existante...
-            <button mat-button (click)="createCampaign()">Créer une nouvelle campagne</button>
-          </p>
-        } @else {
-          <table class="" mat-table [dataSource]="campaigns">
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Nom</th>
-              <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
-            </ng-container>
-            <ng-container matColumnDef="enabled">
-              <th mat-header-cell *matHeaderCellDef> Activée</th>
-              <td mat-cell *matCellDef="let element" class="text-center">
-                @if (element.enabled === true) {
-                  <mat-icon aria-hidden="false" aria-label="Activée" class="enabled" fontIcon="check_circle"></mat-icon>
-                } @else {
-                  <mat-icon aria-hidden="false" aria-label="Désactivée" class="disabled" fontIcon="cancel"></mat-icon>
-                }
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="sent">
-              <th mat-header-cell *matHeaderCellDef> Campagne envoyée ?</th>
-              <td mat-cell *matCellDef="let element">
-                @if (element.sent === true) {
-                  <mat-icon aria-hidden="false" aria-label="Activée" class="enabled" fontIcon="check_circle"></mat-icon>
-                } @else {
-                  <mat-icon aria-hidden="false" aria-label="Désactivée" class="disabled" fontIcon="cancel"></mat-icon>
-                }
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="sentAt">
-              <th mat-header-cell *matHeaderCellDef> Date dernier envoi</th>
-              <td mat-cell *matCellDef="let element">{{ element.sendAt | date: 'dd/MM/yyyy HH:mm' }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="createdAt">
-              <th mat-header-cell *matHeaderCellDef> Date de création</th>
-              <td mat-cell *matCellDef="let element"> {{ element.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="updatedAt">
-              <th mat-header-cell *matHeaderCellDef> Date dernière modification</th>
-              <td mat-cell *matCellDef="let element"> {{ element.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef>Actions</th>
-              <td mat-cell *matCellDef="let element">
-                <div class="flex gap-2 justify-center">
-                </div>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        }
-      </mat-card-content>
-    </mat-card>
+@if (isLoading()) {
+  <div class="my-10 grid grid-flow-col gap-4 grid-row-2">
+    <div role="status" class="h-56  bg-gray-200 rounded-lg animate-pulse">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div role="status" class="h-56  bg-gray-200 rounded-lg animate-pulse">
+      <span class="sr-only">Loading...</span>
+    </div>
   </div>
+} @else {
+  
+  <div class="mb-8">
+    <a mat-raised-button routerLink="/newsletters">
+      <mat-icon aria-hidden="false" aria-label="Retourner sur la page des newsletters" class="px-0 mx-0"
+                fontIcon="arrow_back"></mat-icon>
+    </a>
+  </div>
+
+  @if (error !== "") {
+    <app-alert class="w-full" title="Oups une erreur est survenue" [message]="error" type="error"/>
+  } @else {
+    <div class="grid grid-flow-col gap-4 grid-row-2">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title class="block w-full">
+            <div class="w-full flex justify-between px-4 items-center">
+              <h1>Informations sur la newsletter</h1>
+              <button mat-flat-button>
+                <mat-icon aria-hidden="false" aria-label="Modifier la newsletter" fontIcon="edit"></mat-icon>
+              </button>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+          <mat-list>
+            <mat-list-item><span class="font-bold">Nom: </span> {{ newsletter?.name }}</mat-list-item>
+            <mat-list-item><span class="font-bold">Activée: </span>
+              @if (newsletter?.enabled === true) {
+                <mat-icon aria-hidden="false" aria-label="Activée" class="enabled" fontIcon="check_circle"></mat-icon>
+              } @else {
+                <mat-icon aria-hidden="false" aria-label="Désactivée" class="disabled" fontIcon="cancel"></mat-icon>
+              }
+            </mat-list-item>
+            <mat-list-item><span
+              class="font-bold">Date de création: </span> {{ newsletter?.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+            </mat-list-item>
+            <mat-list-item><span
+              class="font-bold">Date de dernière modification: </span> {{ newsletter?.updatedAt | date: 'dd/MM/yyyy HH:mm' }}
+            </mat-list-item>
+          </mat-list>
+
+        </mat-card-content>
+      </mat-card>
+
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <div class="w-full flex justify-between px-4 mb-4 items-center">
+              <div class="w-1/2">
+                <h1 class="block">Liste des campganes</h1>
+              </div>
+              <div class="w-full flex justify-end gap-2 items-center">
+                <button mat-flat-button (click)="createCampaign()">
+                  <mat-icon aria-hidden="false" aria-label="Modifier la newsletter" fontIcon="add"></mat-icon>
+                </button>
+                <button mat-raised-button>
+                  <mat-icon aria-hidden="false" aria-label="Modifier la newsletter" fontIcon="delete"></mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (campaigns.length === 0) {
+            <p class="text-info text-shadow-2xs text-center flex gap-4 justify-center items-center">
+              <mat-icon aria-hidden="false" aria-label="Information aucune campagne" fontIcon="info"></mat-icon>
+              Aucune campagne existante...
+              <button mat-button (click)="createCampaign()">Créer une nouvelle campagne</button>
+            </p>
+          } @else {
+            <table class="" mat-table [dataSource]="campaigns">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nom</th>
+                <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="enabled">
+                <th mat-header-cell *matHeaderCellDef> Activée</th>
+                <td mat-cell *matCellDef="let element" class="text-center">
+                  @if (element.enabled === true) {
+                    <mat-icon aria-hidden="false" aria-label="Activée" class="enabled"
+                              fontIcon="check_circle"></mat-icon>
+                  } @else {
+                    <mat-icon aria-hidden="false" aria-label="Désactivée" class="disabled"
+                              fontIcon="cancel"></mat-icon>
+                  }
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sent">
+                <th mat-header-cell *matHeaderCellDef> Campagne envoyée ?</th>
+                <td mat-cell *matCellDef="let element">
+                  @if (element.sent === true) {
+                    <mat-icon aria-hidden="false" aria-label="Activée" class="enabled"
+                              fontIcon="check_circle"></mat-icon>
+                  } @else {
+                    <mat-icon aria-hidden="false" aria-label="Désactivée" class="disabled"
+                              fontIcon="cancel"></mat-icon>
+                  }
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sentAt">
+                <th mat-header-cell *matHeaderCellDef> Date dernier envoi</th>
+                <td mat-cell *matCellDef="let element">{{ element.sendAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef> Date de création</th>
+                <td mat-cell *matCellDef="let element"> {{ element.createdAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="updatedAt">
+                <th mat-header-cell *matHeaderCellDef> Date dernière modification</th>
+                <td mat-cell *matCellDef="let element"> {{ element.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="flex gap-2 justify-center">
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
 }

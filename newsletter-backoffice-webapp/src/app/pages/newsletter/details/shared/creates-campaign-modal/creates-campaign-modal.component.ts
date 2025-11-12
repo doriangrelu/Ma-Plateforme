@@ -51,6 +51,7 @@ export class CreatesCampaignModalComponent implements OnInit {
   private readonly loaderService = inject(LoaderService);
   private readonly toasterService = inject(ToasterService);
   private readonly campaignService = inject(CampaignService);
+  protected sending = false;
 
 
   protected readonly scriptUrl = 'https://editor.unlayer.com/embed.js?2';
@@ -84,6 +85,7 @@ export class CreatesCampaignModalComponent implements OnInit {
   private editor: EmailEditorComponent | undefined;
 
   ngOnInit(): void {
+    this.minDate.setDate(this.minDate.getDate() + 1);
     this.dialogRef.disableClose = true;
   }
 
@@ -100,6 +102,7 @@ export class CreatesCampaignModalComponent implements OnInit {
   }
 
   protected async submit() {
+    this.sending = true;
     this.error = null;
     if (this.createsCampaignForm.invalid) {
       this.error = "Veuillez compléter le formulaire"
@@ -124,11 +127,10 @@ export class CreatesCampaignModalComponent implements OnInit {
     this.campaignService.creates(this.data.newsletter, payload).subscribe({
       next: result => {
         this.toasterService.success("Campagne créée avec succès !");
-        this.loaderService.removeLoading();
-        this.dialogRef.disableClose = false;
         this.dialogRef.close();
       },
       error: error => {
+        console.log("Je suis la", error);
         if (error.status === 409) {
           this.error = "Une campagne portant le même nom existe déjà";
         } else if (error.status === 400) {
@@ -137,14 +139,16 @@ export class CreatesCampaignModalComponent implements OnInit {
           this.error = "Une erreur inopinée est survenue...";
         }
       }
+    }).add(() => {
+      this.sending = false;
+      this.loaderService.removeLoading();
+      this.dialogRef.disableClose = false;
     })
-
-    console.debug("Payload: ", payload);
-
   }
 
   private exportHtml(): Promise<string> {
     return new Promise((resolve, reject) => {
+      // @ts-ignore
       this.unlayer.exportHtml(data => {
         resolve(data.html);
       })
