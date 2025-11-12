@@ -8,7 +8,7 @@
     </div>
   </div>
 } @else {
-  
+
   <div class="mb-8">
     <a mat-raised-button routerLink="/newsletters">
       <mat-icon aria-hidden="false" aria-label="Retourner sur la page des newsletters" class="px-0 mx-0"
@@ -52,7 +52,6 @@
 
         </mat-card-content>
       </mat-card>
-
 
       <mat-card>
         <mat-card-header>
@@ -113,7 +112,9 @@
 
               <ng-container matColumnDef="sentAt">
                 <th mat-header-cell *matHeaderCellDef> Date dernier envoi</th>
-                <td mat-cell *matCellDef="let element">{{ element.sendAt | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.sentAt | date: 'dd/MM/yyyy HH:mm' }}
+                </td>
               </ng-container>
 
               <ng-container matColumnDef="createdAt">
@@ -130,6 +131,10 @@
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let element">
                   <div class="flex gap-2 justify-center">
+                    <button mat-raised-button (click)="detailCampaign(element)">
+                      <mat-icon aria-hidden="false" aria-label="Modifier campagne" class="enabled"
+                                fontIcon="edit"></mat-icon>
+                    </button>
                   </div>
                 </td>
               </ng-container>

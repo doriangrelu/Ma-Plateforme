@@ -25,6 +25,7 @@ import {
 import {MatDialog} from '@angular/material/dialog';
 import {CreatesCampaignModalComponent} from './shared/creates-campaign-modal/creates-campaign-modal.component';
 import {CampaignService} from '../../../shared/services/campaign.service';
+import {DetailsCampaignModalComponent} from './shared/details-campaign-modal/details-campaign-modal.component';
 
 @Component({
   selector: 'app-details',
@@ -122,6 +123,19 @@ export class NewsletterDetailsComponent implements OnInit {
     modalRef.afterClosed().subscribe(result => {
       this.resfreshData(this.newsletterId);
     });
+  }
+
+  protected detailCampaign(campaign: Campaign) {
+    this.dialog.open(DetailsCampaignModalComponent, {
+      width: '90vw',
+      height: '80vh',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      panelClass: 'dialog-grande',
+      data: {
+        campaign: campaign
+      }
+    })
   }
 
 }
