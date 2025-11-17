@@ -15,7 +15,6 @@ export interface HeadingEl extends BaseEl {
 export interface TextEl extends BaseEl {
   kind: 'text';
   html: string; // autorise <b>, <i>, <br>, etc.
-  align?: 'left' | 'center' | 'right';
 }
 
 export interface ImageEl extends BaseEl {
@@ -42,7 +41,7 @@ export type MailElement = HeadingEl | TextEl | ImageEl | LinkEl | ButtonEl;
 
 export interface Column {
   id: string;
-  elements: MailElement[];
+  element?: MailElement | null;
 }
 
 export interface Block {
@@ -53,7 +52,8 @@ export interface Block {
   padding?: string; // ex: '20px 0'
 }
 
-export interface EmailDoc {
-  subject: string;
-  blocks: Block[];
+export interface Lib {
+  type: string;
+  icon: string;
+  label: string;
 }

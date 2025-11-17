@@ -1,8 +1,31 @@
-<div class="editor-container">
+<div class="editor-container h-full">
   <!-- Zone éditeur -->
-  <div class="w-5/6">
+  <div class="w-5/6 flex flex-col">
 
-    <h1 class="editor-title">Éditeur</h1>
+    <h1 class="editor-title">Contenu</h1>
+    <div class="flex flex-col">
+      <div class="mb-8 h-full">
+        @if (blocks().length > 0) {
+          <mat-tab-group>
+            <mat-tab label="Editeur">
+              <app-mail-editor-layout [blocks]="blocks()" (onDeleteBlock)="deleteBlock($event)"/>
+            </mat-tab>
+            <mat-tab label="Apperçu">
+              <p>Renderer WIP...</p>
+            </mat-tab>
+          </mat-tab-group>
+        } @else {
+          <div class="w-full text-center italic text-gray-400 my-4">
+            <p>Veuillez ajouter un nouveau block de contenu...</p>
+          </div>
+        }
+      </div>
+      <div class="w-full flex justify-center my-4">
+        <button mat-flat-button (click)="addBlock()">
+          Ajouter un block
+        </button>
+      </div>
+    </div>
 
   </div>
 
@@ -10,32 +33,13 @@
   <div class="w-1/6 bg-gray-50">
     <h1 class="editor-title">Bibliothèque</h1>
 
-    <div class="grid grid-cols-2 gap-4 p-4">
-      <div
-        class="editor-block">
-        <mat-icon aria-hidden="false" aria-label="Texte" fontIcon="titlecase"></mat-icon>
-        <p>Titre</p>
-      </div>
-      <div
-        class="editor-block">
-        <mat-icon aria-hidden="false" aria-label="Liste" fontIcon="toc"></mat-icon>
-        <p>Texte</p>
-      </div>
-      <div
-        class="editor-block">
-        <mat-icon aria-hidden="false" aria-label="Image" fontIcon="image"></mat-icon>
-        <p>Image</p>
-      </div>
-      <div
-        class="editor-block">
-        <mat-icon aria-hidden="false" aria-label="Lien" fontIcon="link"></mat-icon>
-        <p>Lien</p>
-      </div>
-      <div
-        class="editor-block">
-        <mat-icon aria-hidden="false" aria-label="Lien" fontIcon="horizontal_rule"></mat-icon>
-        <p>Séparateur</p>
-      </div>
+    <div cdkDropList #libList="cdkDropList" class="grid grid-cols-2 gap-4 p-4">
+      @for (lib of libs; track lib.label) {
+        <div class="editor-block" draggable="true" (dragstart)="onDragstart($event, lib.type)">
+          <mat-icon [fontIcon]="lib.icon"></mat-icon>
+          <p>{{ lib.label }}</p>
+        </div>
+      }
     </div>
   </div>
 </div>

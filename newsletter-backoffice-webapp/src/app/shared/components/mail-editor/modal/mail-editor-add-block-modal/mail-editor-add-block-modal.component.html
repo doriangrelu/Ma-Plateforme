@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Séléctionnez le layout</h2>
+
+<mat-dialog-content>
+
+  <div id="first" class="flex gap-2 flex-col justify-center">
+    @for (layout of layouts; track layout.column) {
+      <div
+        (click)="select(layout.column)"
+        [class]="`w-full h-32 grid gap-1 grid-cols-${layout.column} grid-flow-col p-4 border border-gray-200 rounded-2xl hover:cursor-pointer hover:bg-gray-300`">
+        @for (block of range(layout.column); track block) {
+          <div class="w-full h-full bg-gray-200 rounded-2xl flex justify-center items-center text-gray-400 font-bold">
+            {{ layout.name }}
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button>Annuler</button>
+</mat-dialog-actions>

@@ -1,0 +1,27 @@
+@use "tailwindcss";
+@use 'variables' as *;
+
+.editor-drop-zone {
+  min-height: 80px;
+  @apply border-dashed border rounded-2xl border-gray-500  bg-gray-100 m-10 p-10;
+  position: relative;
+
+  .editor-drop-zone-handle {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    @apply hover:cursor-grab;
+  }
+
+  .editor-drop-zone-delete {
+    position: absolute;
+    left: 0.5em;
+    top: 0.5em;
+    color: $error;
+
+    & :hover {
+      cursor: pointer;
+      color: lighten($error, 15);
+    }
+  }
+}

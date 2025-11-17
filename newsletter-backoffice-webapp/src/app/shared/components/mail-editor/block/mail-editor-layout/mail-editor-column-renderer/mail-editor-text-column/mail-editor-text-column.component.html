@@ -1,0 +1,21 @@
+@if (inModificationMode) {
+  <div class="NgxEditor__Wrapper w-full">
+    <ngx-editor-menu
+      [editor]="editor"
+      [toolbar]="toolbar"
+      [colorPresets]="colorPresets"
+    ></ngx-editor-menu>
+    <ngx-editor
+      [editor]="editor"
+      [ngModel]="htmlContent"
+      (ngModelChange)="change($event)"
+      outputFormat="html"
+      [ngModelOptions]="{updateOn: 'change'}"
+      [disabled]="false"
+      [placeholder]="'Taper votre text ici'"
+    ></ngx-editor>
+  </div>
+  <button class="w-full my-4" mat-button (click)="endUpdate()">Valider</button>
+} @else {
+  <div class="hover:cursor-pointer" (click)="startUpdate()" [innerHTML]="safeHtml"></div>
+}

@@ -1,0 +1,27 @@
+<div class="w-full flex justify-center bg-white p-4 rounded-2xl" (dragover)="onDragover($event)"
+     (drop)="onDropElement($event, column())">
+  @if (column().element) {
+    @switch (column().element?.kind) {
+      @case ('text') {
+        <app-mail-editor-text-column class="w-full"/>
+      }
+      @case ('heading') {
+        <app-mail-editor-title-column class="w-full"/>
+      }
+      @case ('image') {
+        <app-mail-editor-image-column class="w-full"/>
+      }
+      @case ('link') {
+        <app-mail-editor-link-column class="w-full"/>
+      }
+      @default {
+        <p>Type <strong>{{ column().element?.kind }}</strong> non supporté actuellement.</p>
+        <pre>
+          {{ JSON.stringify(column()) }}
+        </pre>
+      }
+    }
+  } @else {
+    <p class="text-amber-300 font-bold my-4">Faites glisser un élément depuis la bibliothèque</p>
+  }
+</div>

@@ -20,7 +20,7 @@ function renderElement(el: MailElement): string {
 
 function renderBlock(block: Block): string {
   const cols = block.columns
-    .map(c => `<mj-column>${c.elements.map(renderElement).join('')}</mj-column>`)
+    .map(c => `<mj-column>${c.element.map(renderElement).join('')}</mj-column>`)
     .join('');
   const attrs = [
     block.backgroundColor ? `background-color="${block.backgroundColor}"` : '',

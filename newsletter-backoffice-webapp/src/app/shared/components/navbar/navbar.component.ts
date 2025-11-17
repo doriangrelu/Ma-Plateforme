@@ -23,6 +23,10 @@ export class NavbarComponent {
       link: '/'
     },
     {
+      name: 'Editeur de templates',
+      link: '/templates'
+    },
+    {
       name: 'Gestion des newsletters',
       link: '/newsletters'
     }

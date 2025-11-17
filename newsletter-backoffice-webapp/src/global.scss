@@ -2,8 +2,10 @@
 @use '@angular/material' as mat;
 @use 'variables' as *;
 @use 'theme-colors' as myTheme;
+@use "tailwindcss";
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 $theme: mat.define-theme((
   color: (
@@ -13,7 +15,6 @@ $theme: mat.define-theme((
   ),
 ));
 
-@import "tailwindcss";
 
 app-alert {
   display: flex;
